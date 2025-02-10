@@ -1,0 +1,38 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "My Custom API",
+    "description": "An API that returns a simple message.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://slanes-api.loca.lt"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get a welcome message",
+        "operationId": "getMessage",
+        "responses": {
+          "200": {
+            "description": "A simple welcome message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
