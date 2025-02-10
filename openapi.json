@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://slanes-api.loca.lt"
+      "url": "https://flask-api-lph5.onrender.com"
     }
   ],
   "paths": {
