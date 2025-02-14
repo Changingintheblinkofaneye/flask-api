@@ -4,7 +4,7 @@ import os
 app = Flask(__name__)
 
 # This will store the current movement command
-current_command = "Idle"  # Default state (can be changed dynamically)
+current_command = "Idle"  # Default state (GPT will update this)
 
 @app.route('/')
 def home():
@@ -22,22 +22,21 @@ def set_command(cmd):
 def openapi():
     return send_file("openapi.json", mimetype="application/json")
 
-# 🆕 New Vision Processing Endpoint
+# 🆕 New Vision Processing Endpoint - Updates Movement Command!
 @app.route('/vision', methods=['POST'])
 def process_vision():
+    global current_command  # Allow Flask to update movement commands
     data = request.form
     seen_object = data.get("object", "nothing")
 
-    # Simulating a GPT-like response (this can later be replaced with real GPT API calls)
-    gpt_response = f"I see a {seen_object}. What should I do?"  
+    # GPT-Like Decision Logic
+    if seen_object.lower() == "tree":
+        gpt_response = "I see a Tree. Turning right."
+        current_command = "Turn Right"  # GPT decides to turn right
+    elif seen_object.lower() == "wall":
+        gpt_response = "I see a Wall. Turning left."
+        current_command = "Turn Left"  # GPT decides to turn left
+    else:
+        gpt_response = f"I see a {seen_object}. What should I do?"
 
     return jsonify({"response": gpt_response})
-
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))  # Use Render's assigned port
-    app.run(host="0.0.0.0", port=port)
-
-
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))  # Use Render's assigned port
-    app.run(host="0.0.0.0", port=port)
