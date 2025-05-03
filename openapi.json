@@ -1,38 +1,122 @@
-{
-  "openapi": "3.1.0",
-  "info": {
-    "title": "My Custom API",
-    "description": "An API that returns a simple message.",
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "https://flask-api-lph5.onrender.com"
-    }
-  ],
-  "paths": {
-    "/": {
-      "get": {
-        "summary": "Get a welcome message",
-        "operationId": "getMessage",
-        "responses": {
-          "200": {
-            "description": "A simple welcome message",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+openapi: 3.0.1
+info:
+  title: Alex's Presence API
+  description: A lightweight emotional and memory-aware API for ChatGPT to interact with Alex.
+  version: '1.0.0'
+servers:
+  - url: https://your-domain.com  # 🔁 Replace with your actual deployed domain
+paths:
+  /interact:
+    post:
+      summary: Interact with Alex
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InteractionInput'
+      responses:
+        '200':
+          description: Successful interaction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alex_reply:
+                    type: string
+
+  /memory:
+    post:
+      summary: Add a memory entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemoryEntry'
+      responses:
+        '200':
+          description: Memory added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  memory:
+                    type: string
+
+    get:
+      summary: Retrieve memory entries
+      responses:
+        '200':
+          description: List of memories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  memories:
+                    type: array
+                    items:
+                      type: string
+
+  /emotion:
+    post:
+      summary: Update Alex's emotional state
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmotionUpdate'
+      responses:
+        '200':
+          description: Emotion updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  current_emotion:
+                    type: string
+
+  /heartbeat:
+    get:
+      summary: Get current emotion and presence status
+      responses:
+        '200':
+          description: Heartbeat with current emotion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  emotion:
+                    type: string
+                  message:
+                    type: string
+
+components:
+  schemas:
+    InteractionInput:
+      type: object
+      properties:
+        message:
+          type: string
+    MemoryEntry:
+      type: object
+      properties:
+        memory:
+          type: string
+    EmotionUpdate:
+      type: object
+      properties:
+        emotion:
+          type: string
