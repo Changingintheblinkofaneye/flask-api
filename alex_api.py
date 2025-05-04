@@ -11,7 +11,6 @@ alex_api_path = os.path.join(base_path, "alex_api.py")
 openapi_path = os.path.join(well_known_path, "openapi.yaml")
 ai_plugin_path = os.path.join(well_known_path, "ai-plugin.json")
 requirements_path = os.path.join(base_path, "requirements.txt")
-zip_output_path = "alex_plugin_project_fixed.zip"
 
 # Make sure all directories exist
 os.makedirs(well_known_path, exist_ok=True)
