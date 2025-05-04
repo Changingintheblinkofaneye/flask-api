@@ -1,6 +1,7 @@
 # Rewrite the alex_api.py with updated paths (no /mnt/data usage)
 updated_alex_api = """\
 import os
+from pathlib import Path
 from zipfile import ZipFile
 
 # Paths (using relative paths instead of /mnt/data)
