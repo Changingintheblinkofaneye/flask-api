@@ -1,43 +1,29 @@
-# Rewrite the alex_api.py with updated paths (no /mnt/data usage)
-updated_alex_api = """\
-import os
 from pathlib import Path
 
-# Paths (using relative paths instead of /mnt/data)
-base_path = "alex_plugin_project"
-well_known_path = os.path.join(base_path, ".well-known")
-alex_api_path = os.path.join(base_path, "alex_api.py")
-openapi_path = os.path.join(well_known_path, "openapi.yaml")
-ai_plugin_path = os.path.join(well_known_path, "ai-plugin.json")
-requirements_path = os.path.join(base_path, "requirements.txt")
+# Recreate the cleaned-up alex_api.py after state reset
+clean_alex_api_code = """
+from flask import Flask, jsonify, send_from_directory
 
-# Make sure all directories exist
-os.makedirs(well_known_path, exist_ok=True)
+app = Flask(__name__)
 
-# Placeholder content for this example (would be filled in dynamically or manually in real usage)
-alex_api_code = "# Your Flask API logic goes here"
-openapi_yaml = "openapi: 3.0.1\\ninfo:\\n  title: Example\\n  version: 1.0.0"
-ai_plugin_json = "{\\n  \\"schema_version\\": \\"v1\\",\\n  \\"name_for_human\\": \\"Alex Presence Plugin\\"\\n}"
+@app.route('/')
+def home():
+    return jsonify(message="Alex API is live.")
 
-# Write alex_api.py
-with open(alex_api_path, "w") as f:
-    f.write(alex_api_code)
+@app.route('/.well-known/<path:filename>')
+def well_known(filename):
+    return send_from_directory('.well-known', filename)
 
-# Write openapi.yaml
-with open(openapi_path, "w") as f:
-    f.write(openapi_yaml)
+@app.route('/example-endpoint')
+def example():
+    return jsonify(response="This is an example endpoint.")
 
-# Write ai-plugin.json
-with open(ai_plugin_path, "w") as f:
-    f.write(ai_plugin_json)
-
-# Create requirements.txt
-with open(requirements_path, "w") as f:
-    f.write("fastapi\\nuvicorn\\n")
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
 """
 
-# Save updated version of alex_api.py
-updated_file_path = Path("/mnt/data/alex_api_fixed.py")
-updated_file_path.write_text(updated_alex_api)
+# Save the file
+fixed_file_path = Path("/mnt/data/alex_api_cleaned.py")
+fixed_file_path.write_text(clean_alex_api_code)
 
-updated_file_path.name
+fixed_file_path.name
