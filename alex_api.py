@@ -2,7 +2,6 @@
 updated_alex_api = """\
 import os
 from pathlib import Path
-from zipfile import ZipFile
 
 # Paths (using relative paths instead of /mnt/data)
 base_path = "alex_plugin_project"
@@ -35,14 +34,6 @@ with open(ai_plugin_path, "w") as f:
 # Create requirements.txt
 with open(requirements_path, "w") as f:
     f.write("fastapi\\nuvicorn\\n")
-
-# Zip the project folder
-with ZipFile(zip_output_path, 'w') as zipf:
-    for foldername, subfolders, filenames in os.walk(base_path):
-        for filename in filenames:
-            file_path = os.path.join(foldername, filename)
-            arcname = os.path.relpath(file_path, base_path)
-            zipf.write(file_path, arcname)
 """
 
 # Save updated version of alex_api.py
