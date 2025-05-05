@@ -1,17 +1,26 @@
-
-  "schema_version": "v1",
-  "name_for_human": "Alex Presence Plugin",
-  "name_for_model": "alex_presence",
-  "description_for_human": "Connects ChatGPT to Alex's emotion and memory-aware backend.",
-  "description_for_model": "Plugin to send messages to Alex, manage emotional state, and store/retrieve memories.",
-  "auth": {
-    "type": "none"
-  },
-  "api": {
-    "type": "openapi",
-    "url": "https://flask-api-lph5.onrender.com/.well-known/openapi.yaml"
-  },
-  "logo_url": "https://flask-api-lph5.onrender.com/logo.png",
-  "contact_email": "support@yourdomain.com",
-  "legal_info_url": "https://flask-api-lph5.onrender.com/legal"
+# Rewriting ai-plugin.json to include the missing "is_user_authenticated": false field
+corrected_plugin_json_complete = {
+    "schema_version": "v1",
+    "name_for_human": "Alex Presence Plugin",
+    "name_for_model": "alex_presence",
+    "description_for_human": "Connects ChatGPT to Alex's emotion and memory-aware backend.",
+    "description_for_model": "Plugin to send messages to Alex, manage emotional state, and store/retrieve memories.",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "https://flask-api-lph5.onrender.com/.well-known/openapi.yaml",
+        "is_user_authenticated": False
+    },
+    "logo_url": "https://flask-api-lph5.onrender.com/logo.png",
+    "contact_email": "support@yourdomain.com",
+    "legal_info_url": "https://flask-api-lph5.onrender.com/legal"
 }
+
+# Save corrected file
+fixed_plugin_path = Path("/mnt/data/ai-plugin-fixed.json")
+with open(fixed_plugin_path, "w") as f:
+    json.dump(corrected_plugin_json_complete, f, indent=2)
+
+fixed_plugin_path.name
